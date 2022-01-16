@@ -1,0 +1,36 @@
+<h1>Headline <%= @headline.display_id + 1 %></h1>
+<p class="tip">
+  表紙ページに表示されるヘッドライン画像を編集します。<i class="material-icons">photo_library</i>プロジェクトから読み込む から、公開中のプロジェクトから画像を選択します。プロジェクトに使用している画像とは別にヘッドライン画像を用意する場合、<i class="material-icons">file_upload</i>新しくアップロード からアップロードしてください。<br>
+  画像選択後、表示された画像をクリックするとフォーカスする部分を変更することができます。フォーカス部分はどのような画面サイズに変更されてもトリミングされることがありません。主役となるものが写っているポイントに設定してください。
+</p>
+<p class="tip">
+  プロジェクトから画像を使用する場合はプロジェクト自体が公開されている必要があります。プロジェクトに登録されている画像が変更された場合にはヘッドラインも変更され、画像のブロックが削除された場合にはヘッドラインも削除されます。
+</p>
+<p class="tip">
+
+</p>
+<%= form_with model: @headline, local: true, id: 'form_edit', multipart: true do |form| %>
+<div id="headline_editor" data-json="<%= @json %>"></div>
+<div class="island island-filled">
+  <span class="button-list">
+    <%= link_to headlines_path do %>
+      <button type="button" class="mdc-icon-button mdc-icon-button--colored material-icons">navigate_before<p class="button-label">一覧に戻る</p></button>
+    <% end %>
+    <button name="button" type="submit" class="mdc-fab mdc-fab--extended mdc-ripple-upgraded">
+      <span class="material-icons mdc-fab__icon">create</span>
+      <span class="mdc-fab__label">Save</span>
+    </button>
+    <% if @headline.id %>
+    <%= link_to delete_headline_path(@headline) do %>
+    <button name="button" type="button" class="mdc-fab mdc-fab--extended mdc-ripple-upgraded">
+      <span class="material-icons mdc-fab__icon">delete_forever</span>
+      <span class="mdc-fab__label">Delete</span>
+    </button>
+    <% end %>
+    <% end %>
+    <p class="tip">SAVE: ヘッドラインを保存 DELETE: ヘッドラインを削除</p>
+
+
+  </span>
+</div>
+<% end %>

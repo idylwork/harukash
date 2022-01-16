@@ -1,0 +1,59 @@
+<style>
+</style>
+
+<div class="island island-filled">
+  <span class="button-list">
+    <%= link_to contacts_path do %>
+    <button type="button" class="mdc-icon-button mdc-icon-button--colored material-icons">navigate_before<p class="button-label">一覧に戻る</p>
+    </button>
+    <% end %>
+    <button name="button" type="button" class="mdc-fab mdc-fab--extended mdc-ripple-upgraded">
+      <span class="material-icons mdc-fab__icon">mail</span>
+      <span class="dialog-open mdc-fab__label" data-dialog="dialog-resend">Resend</span>
+    </button>
+    <button name="button" type="button" class="dialog-open mdc-fab mdc-fab--extended mdc-ripple-upgraded" data-dialog="dialog-delete">
+      <span class="material-icons mdc-fab__icon">delete_forever</span>
+      <span class="mdc-fab__label">Delete</span>
+    </button>
+  </span>
+</div>
+<div class="island island-filled">
+  <p class="contact-date"><%= @contact.created_at.strftime("%Y %B %-d ") %></p>
+  <h1 class="contact-name"><%= @contact.name %></h1>
+
+  <p class="contact-email"><%= @contact.email %></p>
+
+  <p class="contact-body <%= "contact-body-short" if @contact.body.length < 20 %>"><%= @contact.body %></p>
+</div>
+
+<% content_for :dialog do %>
+<div class="dialog-content-resend">
+  <h2 class="mdc-dialog__title">メールの再送</h2>
+  <section class="mdc-dialog__content">
+    <p>
+      表示中のメッセージの通知メールを<%= @current_admin.email %>に再送します。
+    </p>
+  </section>
+  <footer class="mdc-dialog__actions">
+    <button type="button" class="dialog-close mdc-button mdc-ripple-upgraded">キャンセル</button>
+    <%= link_to resend_contact_path(@contact) do %>
+      <button type="button" class="mdc-button mdc-ripple-upgraded">送信</button>
+    <% end %>
+  </footer>
+</div>
+<div class="dialog-content-delete">
+  <h2 class="mdc-dialog__title">メッセージの削除</h2>
+  <section class="mdc-dialog__content">
+    <p>
+      いちど削除すると元には戻せません。<br>
+      削除しますか？
+    </p>
+  </section>
+  <footer class="mdc-dialog__actions">
+    <button type="button" class="dialog-close mdc-button mdc-ripple-upgraded">キャンセル</button>
+    <%= link_to delete_contact_path(@contact) do %>
+    <button type="button" class="mdc-button mdc-ripple-upgraded">削除</button>
+    <% end %>
+  </footer>
+</div>
+<% end %>

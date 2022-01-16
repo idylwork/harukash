@@ -1,0 +1,21 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<% if @meta_title %>
+<meta property="og:type" content="artcle">
+<title><%= @meta_title %> - Haruka Shoji</title>
+<% else %>
+<meta property="og:type" content="website">
+<title>Haruka Shoji</title>
+<% end %>
+<meta name="keywords" content="Textile Design,Installation">
+<meta name="description" content="Textile Design / Installation">
+<meta property="og:title" content="<%= @meta_title || "Haruka Shoji" %>">
+<meta property="og:description" content="Textile Design / Installation">
+<meta property="og:url" content="<%= request.url %>">
+<meta property="og:image" content="<%= File.join(request.url, @meta_image) if @meta_image %>">
+<meta property="og:site_name" content="Haruka Shoji">
+<meta property="og:locale" content="<%= I18n.locale === :ja ? "ja_JP" : "en_GB" %>">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="/android-chrome-512x512.png">

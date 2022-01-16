@@ -1,0 +1,39 @@
+<% content_for :extend_menu do %>
+  <%= link_to projects_path, class: "mdc-list-item mdc-ripple-upgraded" do %>
+  <i class="material-icons mdc-list-item__graphic">navigate_before</i><span class="mdc-list-item__text pc-only">BACK</span>
+  <% end %>
+
+  <div class="click-event mdc-list-item mdc-ripple-upgraded" data-event="issue">
+  <i class="material-icons mdc-list-item__graphic">send</i><span class="mdc-list-item__text pc-only">ISSUE</span>
+  </div>
+<% end %>
+
+<h1>Issued Projects</h1>
+<p class="tip">プロジェクトのページ順を並べ替えます。プロジェクト名をドラッグで並べ替え後、<i class="material-icons">send</i> Issue で保存してください。</p>
+
+
+<%= form_with(local: true, id: "form_edit", html: {style: "padding-bottom: 1px;"}) do |form| %>
+  <div class="island island-filled">
+    <%= link_to projects_path do %>
+      <button type="button" class="mdc-icon-button mdc-icon-button--colored material-icons">navigate_before<p class="button-label">一覧に戻る</p></button>
+    <% end %>
+    <button name="button" type="submit" class="mdc-fab mdc-fab--extended mdc-ripple-upgraded" value="issue">
+      <span class="material-icons mdc-fab__icon">send</span>
+      <span class="mdc-fab__label">Issue</span>
+    </button>
+  </div>
+
+  <div class="island">
+    <div id="project_list" data-json="<%= @json %>"></div>
+  </div>
+
+  <div class="island island-filled">
+    <%= link_to projects_path do %>
+      <button type="button" class="mdc-icon-button mdc-icon-button--colored material-icons">navigate_before<p class="button-label">一覧に戻る</p></button>
+    <% end %>
+    <button name="button" type="submit" class="mdc-fab mdc-fab--extended mdc-ripple-upgraded" value="issue">
+      <span class="material-icons mdc-fab__icon">send</span>
+      <span class="mdc-fab__label">Issue</span>
+    </button>
+  </div>
+<% end %>

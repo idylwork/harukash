@@ -1,0 +1,7 @@
+<%= link_to contact do %>
+<li class="mdc-list-item mdc-ripple-upgraded">
+  <span class="mdc-list-item__text">
+    <span class="mdc-list-item__primary-text contact-list-item"><%= contact.created_at.strftime("%Y %B %-d ") %> - <%= contact.name %></span><span class="mdc-list-item__secondary-text"><%= contact.body %></span>
+  </span>
+</li>
+<% end %>

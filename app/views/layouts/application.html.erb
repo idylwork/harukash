@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_pack_tag 'portfolio', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'portfolio', 'data-turbolinks-track': 'reload', defer: true %>
+    <meta name="robots" content="noindex">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%= ENV["SITE_NAME"] %></title>
+    <meta name="robots" content="noindex">
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>

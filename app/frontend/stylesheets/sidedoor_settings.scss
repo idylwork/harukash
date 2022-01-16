@@ -1,0 +1,18 @@
+@import "application.scss";
+
+/* Sidedoor共通設定 */
+$width-nav: 200px;
+$width-nav-sp: 55px;
+
+$color-quiet: #d0cbd6;
+$color-warning: #dd1633;
+
+// MDC
+$mdc-theme-primary: #fcc51f;;
+$mdc-theme-secondary: #1b8cd5;
+
+@mixin media-sp {
+  @media screen and (max-width: 900px) {
+    @content;
+  }
+}

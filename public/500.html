@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Internal Server Error | Haruka Shoji</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+      html, body {
+        height: 100%;
+      }
+      @media screen and (max-width: 400px)  {
+        html {
+          font-size: 10px;
+        }
+      }
+      @media screen and (min-width: 401px) and (max-width: 600px)  {
+        html {
+          font-size: 2.5vw;
+        }
+      }
+
+      @font-face {
+        font-family: "Iowan Old Style";
+        src: url("/fonts/IowanOldStyle-Roman-01.woff2") format('woff2'),
+             url("/fonts/IowanOldStyle-Roman-01.woff") format('woff');
+      }
+      .error-number, .error-detail, .error-link {
+        font-family: "Iowan Old Style", "游明朝体", "Yu Mincho", YuMincho, "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "MS P明朝", "MS PMincho", serif;
+        font-weight: 500;
+        margin: 0;
+      }
+
+      body, h1 {
+        color: #222222;
+        background: #fdfdfd;
+        text-align: center;
+        margin: 0;
+      }
+
+      a {
+        color: #222222;
+        transition: color 1s ease;
+        will-change: color;
+      }
+      a:hover {
+        color: #766676;
+      }
+      a .error-image {
+        transition: filter .5s ease;
+        will-change: filter;
+      }
+      a:hover .error-image {
+        filter: blur(2px);
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20% 5%;
+        box-sizing: border-box;
+      }
+      .error-plate {
+        width: 100%;
+        min-width: 300px;
+      }
+      .error-number {
+        font-size: 2rem;
+        margin: 0;
+      }
+      .error-detail {
+        font-size: 3rem;
+        margin-bottom: 9vh;
+      }
+      .error-image {
+        width: 60%;
+        min-width: 200px;
+        max-width: 500px;
+        margin-bottom: 5vh;
+      }
+      .error-link {
+        text-decoration: none;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="error-plate">
+      <h1>
+        <div class="error-number">500</div>
+        <div class="error-detail">Internal Server Error</div>
+      </h1>
+      <a class="error-link" href="/">
+        <img class="error-image" src="/error.jpg">
+        <p>Back to Front Page</p>
+      </a>
+    </section>
+  </body>
+</html>

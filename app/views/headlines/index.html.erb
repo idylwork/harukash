@@ -1,0 +1,22 @@
+<% content_for :main, %(class="headline-index-plate").html_safe  %>
+
+<%= form_with model: @headline, url: sort_headline_path, local: true, id: 'form_edit', multipart: true do |form| %>
+<section class="headline-plate">
+  <section class="headline-preview-plate">
+    <div class="index-album" id="album" data-album="<%= @album.to_json %>" data-interval="<%= @interval %>"></div>
+    <h1>Headline</h1>
+    <p class="tip">
+      <span class="tip-text">上部にプレビューが表示されています。<br>
+      <i class="material-icons">add</i>でヘッドラインに表示する画像を新規に登録します。<br>
+      ドラッグで順番を並べ替え、『並べ替えを反映』で表示順序を変更できます。<br>
+      サムネイルをクリックでヘッドラインを編集できます。<br>
+      </span>
+    </p>
+    <div class="headline-list-button">
+      <button name="button" type="submit" class="mdc-button mdc-button--icon mdc-button--secondary mdc-ripple-upgraded"><i class="material-icons mdc-button__icon">refresh</i>並び替えを反映
+      </button>
+    </div>
+  </section>
+  <section id="headline_list" data-json="<%= @json %>"></section>
+</section>
+<% end %>

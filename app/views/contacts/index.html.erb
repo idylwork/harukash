@@ -1,0 +1,6 @@
+<h1>Contacts</h1>
+<ul id="contact_lists" class="mdc-list mdc-list--two-line">
+  <%= render :partial => "contact", :collection => @contacts %>
+</ul>
+<%= paginate @contacts, remote: true %>
+

@@ -1,0 +1,51 @@
+<section class="pillar<%= " pillar-colored" if color_edge != "transparent" %>" style="background-color: <%= color_edge %>;">
+  <div class="pillar-roles">
+    <% if @roles %>
+    <ul class="pillar-roles-list">
+      <% @roles.each do |role| %>
+      <li class="pillar-roles-item">
+        <span class="pillar-roles-parts"><%= role.name %>:</span>
+        <span class="pillar-roles-parts"><%= role.person %></span>
+      </li>
+      <% end %>
+      <li class="pillar-roles-item">
+        <span class="pillar-roles-parts"><%= @project.date.strftime("%B %Y") %></span>
+      </li>  
+    </ul>
+    <% end %>
+  </div>
+  <div class="pillar-pages">
+  <% @around.each do |key, page| %>
+  <% case page.source -%>
+  <% when "front" %>
+    <%= link_to root_path, class: "pillar-pages-link" do %>
+      <div class="pillar-pages-<%= key %> haze">
+        <div class="pillar-pages-kind"><%= key.capitalize %> Page</div>
+        <h2 class="pillar-pages-title">Front Page</h2>
+      </div>
+    <% end %>
+  <% when "category" %>
+    <%= link_to publish_path(@index[:category][page.content.id]), class: "pillar-pages-link" do %>
+      <div class="pillar-pages-item pillar-pages-<%= key %> haze">
+        <div class="pillar-pages-kind"><%= key.capitalize %> Page</div>
+        <h2 class="pillar-pages-title">Category: <%= page.content.name %></h2>
+      </div>
+    <% end %>
+  <% when "project" %>
+    <%= link_to publish_path(@index[:project][page.content.id]), class: "pillar-pages-link" do %>
+      <div class="pillar-pages-item pillar-pages-<%= key %> haze">
+        <div class="pillar-pages-kind"><%= key.capitalize %> Page</div>
+        <h2 class="pillar-pages-title"><%= page.content.title %></h2>
+        <img src="<%= page.content.file %>" class="pillar-thumbnail<%= " vertical" if page.content.is_portrait %>">
+        <p class="pillar-pages-text"><%= page.content.overview %></p>
+      </div>
+    <% end %>
+  <% end %>
+  <% end %>
+    <%= link_to root_path, class: "pillar-pages-link" do %>
+      <div class="pillar-pages-item">
+        <h2 class="pillar-pages-title"><div>Back to</div>Front Page</h2>
+      </div>
+    <% end %>
+  </div>
+</section>

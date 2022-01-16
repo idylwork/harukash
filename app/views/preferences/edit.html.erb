@@ -1,0 +1,150 @@
+<% content_for :extend_menu do %>
+  <div class="click-event mdc-list-item mdc-ripple-upgraded" data-event="submit">
+    <i class="material-icons mdc-list-item__graphic">create</i><span class="mdc-list-item__text pc-only">APPLY</span>
+  </div>
+<% end %>
+<h1>Preference</h1>
+<%= form_with(model: @preference, local: true, id: "form_edit", html: {style: "padding-bottom: 1px;"}) do |form| %>
+  <% if @preference.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@preference.errors.count, "error") %> prohibited this @preference from being saved:</h2>
+
+    <ul>
+      <% @preference.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="island island-flex">
+    <h2 class="island-header">Profile</h2>
+    <div>
+      <%= form.label :profile_en, class: "dew-text-label", value: "English" %>
+      <%= form.text_area :profile_en, class: "dew-text dew-text-textarea" %>
+    </div>
+    <div>
+      <%= form.label :profile_jp, class: "dew-text-label", value: "Japanese" %>
+      <%= form.text_area :profile_jp, class: "dew-text dew-text-textarea" %>
+    </div>
+    <p class="tip">トップページ下部に表示される自己紹介文を変更します。</p>
+  </div>
+
+  <div class="island island-flex">
+    <h2 class="island-header">Editor's Board</h2>
+    <div>
+      <%= form.label :role_ult_name, class: "dew-text-label", value: "プロジェクト標準の役割" %>
+      <%= form.text_field :role_default_name, class: "dew-text" %>
+    </div>
+
+    <div>
+      <%= form.label :role_default_person, class: "dew-text-label", value: "プロジェクト標準の名前" %>
+      <%= form.text_field :role_default_person, class: "dew-text" %>
+      <p class="tip">新規プロジェクト作成時にRolesに初めから入力されている作者名と役割名を設定します。空白も可能です。</p>
+    </div>
+    <hr>
+
+    <div class="mdc-slider mdc-slider--discrete" role="slider"
+        aria-valuemin="1" aria-valuemax="10">
+      <input type="hidden" name="preference[projects_display_count]" class="mdc-slider__input" value="<%= @preference.projects_display_count %>">
+      <div class="mdc-slider__track-container">
+        <div class="mdc-slider__track"></div>
+      </div>
+      <div class="mdc-slider__thumb-container">
+        <div class="mdc-slider__pin">
+          <span class="mdc-slider__pin-value-marker"></span>
+        </div>
+        <svg class="mdc-slider__thumb" width="21" height="21">
+          <circle cx="10.5" cy="10.5" r="7.875"></circle>
+        </svg>
+        <div class="mdc-slider__focus-ring"></div>
+      </div>
+      <div>プロジェクトの最大表示数</div>
+    </div>
+    <p class="tip">トップページの1カテゴリあたりの表示件数を設定します。件数を超えたプロジェクトは省略され、各カテゴリ詳細ページからのみ閲覧できるようになります。</p>
+    <hr>
+    <div class="mdc-slider mdc-slider--discrete" role="slider" aria-valuemin="100" aria-valuemax="300">
+      <input type="hidden" name="preference[headline_interval]" class="mdc-slider__input" value="<%= @preference.headline_interval / 100 %>">
+      <div class="mdc-slider__track-container">
+        <div class="mdc-slider__track"></div>
+      </div>
+      <div class="mdc-slider__thumb-container">
+        <div class="mdc-slider__pin">
+          <span class="mdc-slider__pin-value-marker"></span>
+        </div>
+        <svg class="mdc-slider__thumb" width="21" height="21">
+          <circle cx="10.5" cy="10.5" r="7.875"></circle>
+        </svg>
+        <div class="mdc-slider__focus-ring"></div>
+      </div>
+      <div>ヘッドラインの表示間隔</div>
+    </div>
+    <p class="tip">トップページの1カテゴリあたりの表示件数を設定します。件数を超えたプロジェクトは省略され、各カテゴリ詳細ページからのみ閲覧できるようになります。</p>
+    <hr>
+    <div class="dew-switch">
+      <label>注釈エリア標準の背景色</label>
+      <div>
+        <input id="input_color" name="preference[default_color_edge]" value="<%= @preference.default_color_edge %>">
+      </div>
+
+    </div>
+    <p class="tip">各カテゴリ詳細ページ注釈の背景色を設定します。新規プロジェクトの作成時の注釈背景色も同様の色となります。</p>
+    <hr>
+    <div class="dew-switch">
+      <label for="another-basic-switch">プレビューの標準言語を日本語にする</label>
+      <div class="mdc-switch <%= "mdc-switch--checked" if @preference.preview_locale_jp %>">
+        <div class="mdc-switch__track"></div>
+        <div class="mdc-switch__thumb-underlay">
+          <div class="mdc-switch__thumb">
+            <input type="hidden" name="preference[preview_locale_jp]" value="0">
+            <input type="checkbox" name="preference[preview_locale_jp]" id="another-basic-switch" class="mdc-switch__native-control" value="1" <%= "checked" if @preference.preview_locale_jp %>>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="tip">プロジェクト編集時にプレビュー表示する言語の設定は接続中しばらくは保存されますが、ログイン直後に日本語を表示する場合にはONにしてください。</p>
+    <hr>
+    <div class="dew-switch">
+      <label for="another-basic-switch">ウェブサイトを一時的に非公開にする</label>
+      <div class="mdc-switch <%= "mdc-switch--checked" if @preference.under_construction %>">
+        <div class="mdc-switch__track"></div>
+        <div class="mdc-switch__thumb-underlay">
+          <div class="mdc-switch__thumb">
+            <input type="hidden" name="preference[under_construction]" value="0">
+            <input type="checkbox" name="preference[under_construction]" id="another-basic-switch" class="mdc-switch__native-control" value="1" <%= "checked" if @preference.under_construction %>>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="tip">何らかの問題が起きた際などに緊急でサイトの公開を停止したい場合にONにしてください。</p>
+  </div>
+
+  <div class="island island-flex">
+    <h2 class="island-header">Manage Categories</h2>
+    <div id="category_list" data-json="<%= @categories.to_json %>"></div>
+    <p class="tip">カテゴリ名を編集することができます。<i class="material-icons">drag_handle</i>をドラッグすることで表示順を並び替え、<i class="material-icons">expand_more</i>をクリックするとカテゴリが追加されます。<i class="material-icons">clear</i>をクリックでカテゴリが削除されますが、現在プロジェクトに設定されているカテゴリは削除することができません。</p>
+  </div>
+
+  <div class="island island-flex">
+    <h2 class="island-header">Informations</h2>
+    <p>画像ファイル合計 : <%= number_to_human_size @images_size %></p>
+    <p>ログインユーザー : <%= @current_admin.name %></p>
+    <p class="tip">サーバーの情報が表示されます。</p>
+  </div>
+
+  <div class="island island-filled">
+    <button name="button" type="submit" class="mdc-fab mdc-fab--extended mdc-ripple-upgraded">
+      <span class="material-icons mdc-fab__icon">create</span>
+      <span class="mdc-fab__label">Apply</span>
+    </button>
+    <% if controller.owner? %>
+    <%= link_to admins_path do %>
+    <button name="button" type="button" class="mdc-fab mdc-fab--extended mdc-ripple-upgraded">
+      <span class="material-icons mdc-fab__icon">account_balance</span>
+      <span class="mdc-fab__label">Account</span>
+    </button>
+    <% end %>
+    <% end %>
+    <p class="tip"><i class="material-icons">create</i>APPLY: 設定を保存します。<i class="material-icons">account_balance</i>ACCOUNT: 管理ユーザーの情報を変更します。</p>
+  </div>
+<% end %>

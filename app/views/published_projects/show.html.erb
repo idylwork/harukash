@@ -1,0 +1,66 @@
+<% content_for :main, %(class="plate-project").html_safe  %>
+<section class="facade<%= " facade-colored" if @project.color_bg != "transparent" %>" style="color: <%= @project.color_txt %>; background-color: <%= @project.color_bg %>;">
+  <h1 class=""><%= @project.title %></h1>
+  <ul class="facade-roles-list">
+    <% @roles.each do |role| %>
+    <li class="facade-roles-item"><span class="facade-roles-parts"><%= role.name %>:</span>
+      <span class="facade-roles-parts"><%= role.person %></span></li>
+    <% end %>
+    <li class="facade-roles-item"><span class="facade-roles-parts"><%= @project.date.strftime("%B %Y") %></span></li>
+  </ul>
+  <div class="stone-picture">
+    <img class="stone-image-facade<%= " stone-image-facade-portrait" if @project.is_portrait %> haze-image" src="<%= @project.file %>">
+  </div>
+</section>
+
+<div class="project-contents">
+  <section class="stone-list">
+  <% @blocks.each do |block| %>
+    <div class="stone <%= "stone-colored" if block.color_bg != "transparent" %> stone-<%= block.type %> haze" style="color: <%= block.color_txt %>; background-color: <%= block.color_bg %>;">
+    <% case block.type -%>
+    <% when "heading" %>
+      <h2>
+        <div><%= block.text_en %></div>
+      </h2>
+    <% when "text" %>
+      <p><%= block.text %></p>
+    <% when "link" %>
+      <div class="fountain-link">
+        <a class="fountain-link-surface" href="<%= block.option %>" target="_blank">
+        <%= block.text %><div class="fountain-link-line"></div>
+        </a>
+      </div>
+    <% when "picture" %>
+      <% if block.is_portrait %>
+        <div class="stone-image-portrait">
+          <div class="stone-image-surface haze-image" style="background-image: url(<%= block.file %>)"></div>
+        </div>
+      <% else %>
+        <div class="stone-image-horizontal">
+          <img class="stone-image haze-image" src="<%= block.file %>">
+        </div>
+      <% end %>
+      <% if block.text.present? %>
+        <% if block.option.present? %>
+          <div class="stone-image-caption">
+            <div class="fountain-link">
+              <a class="fountain-link-surface" href="<%= block.option %>" target="_blank">
+              <%= block.text %><div class="fountain-link-line"></div>
+              </a>
+            </div>
+          </div>
+        <% else %>
+          <div class="stone-image-caption">
+            <span class="stone-image-caption-text"><%= block.text %></span>
+          </div>
+        <% end %>
+      <% end %>
+    <% when "html" %>
+      <%= raw block.text_en %>
+    <% end %>
+    </div>
+  <% end %>
+  </section>
+
+  <%= render partial: "pillar", locals: {color_edge: @project.color_edge} %>
+</div>

@@ -1,0 +1,108 @@
+<% content_for :extend_menu do %>
+  <%= link_to projects_path, class: "mdc-list-item mdc-ripple-upgraded" do %>
+  <i class="material-icons mdc-list-item__graphic">navigate_before</i><span class="mdc-list-item__text pc-only">PROJECTS</span>
+  <% end %>
+
+  <% if @project.id %>
+  <%= link_to show_project_path(@project), class: "mdc-list-item mdc-ripple-upgraded"  do %>
+  <i class="material-icons mdc-list-item__graphic">search</i><span class="mdc-list-item__text pc-only">PREVIEW</span>
+  <% end %>
+  <% end %>
+
+  <div class="click-event mdc-list-item mdc-ripple-upgraded" data-event="submit">
+  <i class="material-icons mdc-list-item__graphic">create</i><span class="mdc-list-item__text pc-only">SAVE</span>
+  </div>
+
+  <div class="click-event mdc-list-item mdc-ripple-upgraded" data-event="issue">
+  <i class="material-icons mdc-list-item__graphic">send</i><span class="mdc-list-item__text pc-only">ISSUE</span>
+  </div>
+
+  <% if @is_issued %>
+  <%= link_to recall_project_path(@project), class: "mdc-list-item mdc-ripple-upgraded"  do %>
+  <i class="material-icons mdc-list-item__graphic">backspace</i><span class="mdc-list-item__text pc-only">RECALL</span>
+  <% end %>
+  <% end %>
+<% end %>
+
+<section class="project-edit-plate">
+<%= form_with(model: @project, local: true, id: "form_edit", multipart: true) do |form| %>
+  <% if @project.errors.any? %>
+  <div class="error-block">
+    <h2><%= pluralize(@project.errors.count, "件のエラーがあります") %></h2>
+    <ul>
+      <% @project.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div id="project_editor" data-project="<%= @project.to_json %>" data-roles="<%= @roles.to_json %>" data-blocks="<%= @blocks.to_json %>" data-category-names="<%= @category_names.to_json %>" data-cache="<%= @cache %>"<% if controller.root? %> data-enable-html="true"<% end %>></div>
+
+  <div class="island island-filled">
+    <span class="button-list">
+      <%= link_to projects_path do %>
+      <button type="button" class="mdc-icon-button mdc-icon-button--colored material-icons">navigate_before<p class="button-label">一覧に戻る</p>
+      </button>
+      <% end %>
+
+      <% if @project.id %>
+      <%= link_to show_project_path(@project), target: "_new" do %>
+      <button name="button" type="button" class="mdc-fab mdc-fab--extended mdc-ripple-upgraded">
+        <span class="material-icons mdc-fab__icon">search</span>
+        <span class="mdc-fab__label">Preview</span>
+      </button>
+      <% end %>
+      <% end %>
+
+      <button name="button" type="submit" class="mdc-fab mdc-fab--extended mdc-ripple-upgraded">
+        <span class="material-icons mdc-fab__icon">create</span>
+        <span class="mdc-fab__label">Save</span>
+      </button>
+      <button name="button" type="submit" class="mdc-fab mdc-fab--extended mdc-ripple-upgraded" value="issue">
+        <span class="material-icons mdc-fab__icon">send</span>
+        <span class="mdc-fab__label">Issue</span>
+      </button>
+
+      <% if @is_issued %>
+      <%= link_to recall_project_path(@project) do %>
+      <button name="button" type="button" class="mdc-fab mdc-fab--extended mdc-ripple-upgraded">
+        <span class="material-icons mdc-fab__icon">backspace</span>
+        <span class="mdc-fab__label">Recall</span>
+      </button>
+      <% end %>
+      <% end %>
+      <% if @project.id %>
+      <button name="button" type="button" class="dialog-open mdc-fab mdc-fab--extended mdc-ripple-upgraded">
+        <span class="material-icons mdc-fab__icon">delete_forever</span>
+        <span class="mdc-fab__label">Delete</span>
+      </button>
+      <% end %>
+    </span>
+    <p class="tip"><i class="material-icons">search</i>PREVIEW: 下書き確認 <i class="material-icons">create</i>SAVE: 内容を保存 <i class="material-icons">send</i>ISSUE: 内容を保存して公開 <i class="material-icons">backspace</i>RECALL: 非公開に変更 <i class="material-icons">delete_forever</i>DELETE: 公開を終了して削除</p>
+  </div>
+
+  <div class="island island-filled">
+    <p>ファイル合計: <%= number_to_human_size @file_size %></p>
+  </div>
+
+<% end #form_with %>
+</section>
+
+<% if @project.id %>
+  <% content_for :dialog do %>
+  <h2 class="mdc-dialog__title">プロジェクトの削除</h2>
+  <section class="mdc-dialog__content">
+    <p>
+      いちど削除すると元には戻せません。<br>
+      削除しますか？
+    </p>
+  </section>
+  <footer class="mdc-dialog__actions">
+    <button type="button" class="dialog-close mdc-button mdc-button--secondary mdc-ripple-upgraded">キャンセル</button>
+    <%= link_to delete_project_path(@project) do %>
+    <button type="button" class="mdc-button mdc-ripple-upgraded">削除</button>
+    <% end %>
+  </footer>
+  <% end %>
+<% end %>

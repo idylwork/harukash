@@ -1,0 +1,51 @@
+<h1>管理ユーザー編集</h1>
+
+<div class="mdc-layout-grid">
+  <div class="mdc-layout-grid__inner">
+    <% @admins.each do |admin| %>
+    <div class="mdc-card mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+      <%= link_to edit_admin_path(admin) do %>
+      <div class="mdc-card__primary-action mdc-ripple-upgraded">
+        <div class="card-surface">
+          <h2 class="mdc-typography--headline6">
+            <% if admin.level == "root" %>
+              <i class="material-icons">account_balance</i>
+            <% elsif admin.level == "owner" %>
+              <i class="material-icons">bookmark</i>
+            <% end %>
+            <%= admin.name %>
+          </h2>
+          <h3 class="mdc-typography--subtitle2">
+            <%= admin.email %>
+            <% if admin.sendmail %>&#10003;<% end %>
+          </h3>
+          <% if admin.id == @current_admin.id %>
+          <div class="card-supplement">Loged In</div>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+      <div class="mdc-card__actions">
+        <div class="mdc-card__action-icons">
+          <%= link_to edit_admin_path(admin) do %>
+          <button type="button" class="mdc-icon-button mdc-icon-button--colored material-icons">settings<p class="button-label">編集</p></button>
+          <% end %>
+          <%= link_to delete_admin_path(admin) do %>
+          <button type="button" class="mdc-icon-button mdc-icon-button--colored material-icons">delete<p class="button-label">削除</p></button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <div class="mdc-card mdc-layout-grid__cell mdc-layout-grid__cell--span-3 card-new">
+      <div class="mdc-card__primary-action mdc-ripple-upgraded">
+        <div class="card-surface">
+          <%= link_to new_admin_path do %>
+          <i class="material-icons">add</i>
+          <h2>Create New User</h2>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

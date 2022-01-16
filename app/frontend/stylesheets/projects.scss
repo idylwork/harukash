@@ -1,0 +1,199 @@
+@import "./sidedoor_settings.scss";
+
+/* 編集エリア */
+.project-edit-plate {
+  flex-basis:  auto;
+  flex-grow: 1;
+  padding: 10px 320px 10px 0;
+
+  .island-divider {
+    color: $color-quiet;
+    text-align: center;
+    margin: -10px 0;
+    > button:hover {
+      color: #000000;
+    }
+  }
+  .edit-form-file {
+    margin: 20px 0 10px;
+  }
+  /* v-calendar上書き */
+  .edit-datepicker .c-pane-container {
+    border: 1px solid #ccbbcc;
+    border-radius: 4px;
+    user-select: none;
+  }
+}
+
+/* プレビューエリア */
+.project-preview-plate {
+  $plate-width: 300px;
+  $header-height: 40px;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1500;
+  width: $plate-width;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background: $color-base;
+  padding: $header-height 0;
+  box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  margin-right: 12px;
+
+  > .preview-plate-settings {
+    text-align: center;
+    width: $plate-width;
+    position: fixed;
+    margin-top: -$header-height;
+    z-index: 1510;
+  }
+}
+
+.facade-preview {
+  $margin-facade: 2%;
+  
+  padding: 30px 0 40px;
+
+  &.facade-colored {
+    margin-bottom: 40px;
+  }
+
+  h1 {
+    @include font-primary;
+    font-size: 1.8rem;
+    line-height: 2rem;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 40px;
+
+    .heading-sub {
+      @include font-secondary;
+      display: inline-block;
+      font-size: 1.2rem;
+      letter-spacing: 3px;
+    }
+  }
+
+  .facade-roles-list {
+    font-size: 0.8rem;
+    list-style: none;
+    text-align: left;
+    margin: 0 $margin-facade 20px $margin-facade;
+
+    > .facade-roles-item {
+      margin: 6px $margin-inner;
+      .facade-roles-parts {
+        white-space: nowrap;
+        &:first-of-type {
+          margin-right: 4px;
+        }
+      }
+    }
+  }
+
+  .stone-picture {
+    color: #b7bcc5;
+    text-align: center;
+    padding: 0 4%;
+
+    > .stone-image-facade {
+      width: 100%;
+      margin: 5% 0;
+      &.stone-image-facade-portrait {
+        max-width: 70%;
+      }
+    }
+  }
+}
+.stone-list-preview {
+  padding: 0 $margin-outer;
+  box-sizing: border-box;
+}
+
+@media (max-width: 680px) {
+  .project-edit-plate {
+    padding-right: 18px;
+  }
+  .project-preview-plate {
+    display: none;
+  }
+}
+
+/* ブロック編集のリストトランジション */
+.block-enter-active {
+  transition: opacity 2s, transform 1s;
+}
+.block-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+.block-leave-active {
+  transition: opacity 0.8s, transform 0.8s;
+}
+.block-leave-to {
+  opacity: 0;
+  transform: scale(0.8);
+}
+.block-move:not(.block-leave-active) {
+  transition: transform 0.3s;
+}
+
+/* プレビューのリストトランジション */
+.stone-preview-enter-active {
+  transition: opacity 0.4s, transform 0.3s;
+}
+.stone-preview-enter, {
+  opacity: 0;
+  transform: translateX(40px);
+}
+.stone-preview-leave-active {
+  transition: opacity 0.4s, transform 0.2s;
+}
+.stone-preview-leave-to {
+  opacity: 0;
+  transform: translateX(40px);
+}
+.stone-preview-move:not(.stone-preview-leave-active) {
+  transition: transform 0.3s;
+}
+
+.edit-color-button {
+  display: inline-block;
+  width: 50px;
+  height: 10px;
+  border: 1px solid #000000;
+  border-radius: 2px;
+}
+
+/* プロジェクト一覧 */
+.project-index-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 4px;
+}
+
+/* プロジェクト並べ替え */
+.project-batch-list {
+  &:not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item {
+    &::before, &::after {
+      background-color: unset;
+    }
+    &.project-batch-list-item-hover {
+      &::before, &::after {
+        background-color: #000000;
+      }
+    }
+  }
+
+  .project-list-item-text-secondary {
+    font-size: 0.4rem;
+    &::before {
+      height: 16px;
+    }
+  }
+}

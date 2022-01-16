@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+<style type="text/css"><!--
+  h1{margin-bottom:0;}
+  hr{margin: 20px 0;border: 0 none;height:1px;color: #696969;background-color:#696969;}
+  .email{font-size:80%;}
+  .footer{font-size:60%;color:#a3a343;}
+--></style>
+</head>
+<body>
+  <h1><%= @contact.name %></h1>
+  <p class="email"><%= mail_to @contact.email %></p>
+  <hr>
+  <p>
+    <%= @contact.body %>
+  </p>
+  <hr>
+  <p class="footer"><%= @contact.created_at.strftime("%Y %B %-d ") %> - #{ENV["SITE_NAME"]} - Contact Form Nortification System</p>
+</body>
+</html>

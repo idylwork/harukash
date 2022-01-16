@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_pack_tag 'portfolio', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'portfolio', 'data-turbolinks-track': 'reload', defer: true %>
+    <%= render partial: 'layouts/meta_tags' %>
+    <%= analytics_init if Rails.env.production? %>
+  </head>
+  <body class="<%= "locale-ja" if I18n.locale == :ja %>">
+    <main <%= yield :main %>>
+      <%= yield %>
+      <footer class="paginate paginate-<%= @page_no.even? ? "l" : "r" %>"><%= @page_no %></footer>
+    </main>
+    <% if notice %>
+    <div id="notice" class="notice-plate">
+      <%= notice %>
+    </div>
+    <% end %>
+  </body>
+</html>

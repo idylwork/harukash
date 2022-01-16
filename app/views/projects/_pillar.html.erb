@@ -1,0 +1,24 @@
+<section class="pillar<%= " pillar-colored" if color_edge != "transparent" %>" style="background-color: <%= color_edge %>;">
+  <div class="pillar-roles">
+    <% if @roles %>
+    <ul class="pillar-roles-list">
+      <% @roles.each do |role| %>
+      <li class="pillar-roles-item">
+        <span class="pillar-roles-parts"><%= role.name %>:</span>
+        <span class="pillar-roles-parts"><%= role.person %></span>
+      </li>
+      <% end %>
+      <li class="pillar-roles-item">
+        <span class="pillar-roles-parts"><%= @project.date.strftime("%B %Y") %></span>
+      </li>
+    </ul>
+    <% end %>
+  </div>
+  <div class="pillar-pages">
+    <%= link_to edit_project_path(id: @project.id), class: "pillar-pages-link" do %>
+      <div class="pillar-pages-item">
+        <h2 class="pillar-pages-title"><div>Back to</div>Edit Page</h2>
+      </div>
+    <% end %>
+  </div>
+</section>

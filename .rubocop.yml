@@ -1,0 +1,59 @@
+Rails:
+  Enabled: true
+
+AllCops:
+  TargetRubyVersion: 2.3
+  # 除外フォルダ
+  Exclude:
+    - "vendor/**/*"
+    - public/**/*
+    - tmp/**/*
+    - log/**/*
+    - node_modules/**/*
+    - bin/**/*
+
+# クオートの種類
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+
+# ABC
+Metrics/AbcSize:
+  Max: 1020
+
+# メソッド複雑度 Default: 6
+Metrics/CyclomaticComplexity:
+  Max: 1010
+
+Metrics/LineLength:
+  Max: 160
+  Exclude:
+    - "db/migrate/*.rb"
+
+# 制限分岐 Default: 7
+Metrics/PerceivedComplexity:
+  Max: 8
+
+# メソッド行数制限 default: 10
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - "db/migrate/*.rb"
+
+# ドキュメントの無いパブリック・クラス
+Style/Documentation:
+  Enabled: false
+
+# マルチバイト文字でのコメント制限
+Style/AsciiComments:
+  Enabled: false
+
+# 数値リテラルの3桁区切りを必須としない
+Style/NumericLiterals:
+  Enabled: false
+
+# 不要なreturnの削除
+RedundantReturn:
+  AllowMultipleReturnValues: false

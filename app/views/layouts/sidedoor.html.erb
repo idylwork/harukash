@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_pack_tag 'sidedoor', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%= @meta_title || controller.controller_name.capitalize %> - <%= ENV["SITE_NAME"] %></title>
+    <meta name="robots" content="noindex">
+  </head>
+  <body class="<%= "show-tip" if @current_admin.show_help %>">
+    <aside class="mdc-drawer mdc-drawer--permanent mdc-drawer--persistent">
+      <div class="mdc-drawer__header pc-only">
+        <h1 class="mdc-drawer__title"><%= controller.controller_name %></h1>
+        <h2 class="mdc-drawer__subtitle"><%= ENV["SITE_NAME"] %></h2>
+      </div>
+      <div class="mdc-drawer__content">
+        <nav class="mdc-list">
+          <%= link_to root_path, class: "mdc-list-item mdc-ripple-upgraded" do %>
+          <i class="material-icons mdc-list-item__graphic">import_contacts</i>
+          <span class="mdc-list-item__text pc-only">サイトを開く</span>
+          <% end %>
+          <%= link_to headlines_path, class: "mdc-list-item #{"mdc-list-item--selected" if controller.controller_name == "headlines"} mdc-ripple-upgraded" do %>
+          <i class="material-icons mdc-list-item__graphic">gradient</i>
+            <span class="mdc-list-item__text pc-only">見出し画像</span>
+          <% end %>
+          <%= link_to sticky_path, class: "mdc-list-item #{"mdc-list-item--selected" if controller.controller_name == "stickys"} mdc-ripple-upgraded" do %>
+          <i class="material-icons mdc-list-item__graphic">content_paste</i>
+            <span class="mdc-list-item__text pc-only">付箋</span>
+          <% end %>
+          <%= link_to projects_path, class: "mdc-list-item #{"mdc-list-item--selected" if controller.controller_name == "projects"} mdc-ripple-upgraded" do %>
+          <i class="material-icons mdc-list-item__graphic">photo_library</i>
+          <span class="mdc-list-item__text pc-only">プロジェクト</span>
+          <% end %>
+          <%= link_to contacts_path, class: "mdc-list-item #{"mdc-list-item--selected" if controller.controller_name == "contacts"} mdc-ripple-upgraded" do %>
+          <i class="material-icons mdc-list-item__graphic">mail</i>
+          <span class="mdc-list-item__text pc-only">メッセージ</span>
+          <% end %>
+          <%= link_to preference_path, class: "mdc-list-item mdc-ripple-upgraded #{"mdc-list-item--selected" if controller.controller_name == "preferences"}" do %>
+          <i class="material-icons mdc-list-item__graphic">settings</i>
+          <span class="mdc-list-item__text pc-only">設定</span>
+          <% end %>
+          <%= link_to leave_sidedoor_path, class: "mdc-list-item mdc-ripple-upgraded" do %>
+          <i class="material-icons mdc-list-item__graphic">input</i>
+          <span class="mdc-list-item__text pc-only">ログアウト</span>
+          <% end %>
+        </nav>
+        <hr class="mdc-list-divider">
+        <h2 class="mdc-list-group__subheader pc-only">Tools</h2>
+        <nav class="mdc-list">
+          <div class="toggle-tip mdc-list-item mdc-ripple-upgraded">
+          <i class="material-icons mdc-list-item__graphic">help</i><span class="mdc-list-item__text pc-only">SHOW HELP</span>
+          </div>
+          <%= yield :extend_menu %>
+        </nav>
+      </div>
+    </aside>
+    <main <%= yield :main %>>
+      <%= yield %>
+
+      <div class="mdc-dialog">
+        <div class="mdc-dialog__container">
+          <div class="mdc-dialog__surface">
+            <%= yield :dialog %>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="notice" class="mdc-snackbar mdc-snackbar--align-start">
+      <div id="notice_text" class="mdc-snackbar__text"><%= notice.presence %></div>
+      <div class="mdc-snackbar__action-wrapper">
+        <button type="button" class="mdc-snackbar__action-button"></button>
+      </div>
+    </div>
+
+    <%= javascript_pack_tag 'sidedoor', 'data-turbolinks-track': 'reload', defer: true %>
+  </body>
+</html>

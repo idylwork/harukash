@@ -1,0 +1,367 @@
+@import "application.scss";
+@import "./sidedoor_settings.scss";
+
+$material-icons-font-path: "../fonts/";
+@import "material-icons/iconfont/material-icons.scss";
+@import "material-components-web/material-components-web.scss";
+
+@import "./mdc.scss";
+
+[v-cloak] {
+  display: none;
+}
+/* ページ全体 */
+@include media-sp {
+  .pc-only {
+    display: none !important;
+  }
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  @include font-primary;
+  box-sizing: border-box;
+  min-height: 100%;
+  width: 100%;
+
+  > aside {
+    position: fixed;
+    height: 100%;
+  }
+  > main {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 20px 10px 20px 20px;
+    border-left: $width-nav solid transparent;
+    @include media-sp { border-left-width: $width-nav-sp; }
+  }
+
+  .tip {
+    display: none;
+    color: #888888;
+    font-size: 0.6rem;
+    line-height: 1.1rem;
+    margin: 10px 0 15px;
+    transition: 2s height;
+    .material-icons {
+      display: inline;
+      font-size: 0.6rem;
+    }
+
+    > .tip-text {
+      display: inline-block;
+      text-align: left;
+      padding-left: 1rem;
+    }
+
+    &.tip-center {
+      text-align: center;
+    }
+    &.tip-right {
+      text-align: right;
+    }
+    &.tip-closer {
+      margin: 0;
+    }
+  }
+  &.show-tip {
+    .tip {
+      display: block;
+    }
+  }
+
+  .click-event {
+    cursor: pointer;
+  }
+}
+
+/* エラー */
+.error-block {
+  color: $color-warning;
+  background: #ffdde3;
+  padding: 20px;
+  margin: 10px 0;
+  > ul {
+    list-style: inside;
+    margin-top: 10px;
+    > li {
+      margin-top: 5px;
+    }
+  }
+}
+
+/* コントロールボタンリスト */
+.button-list {
+  line-height: 58px;
+}
+
+/* Component: 下部情報バー */
+.info-plate {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: #ffffff;
+  text-align: center;
+  vertical-align: middle;
+  z-index: 9000;
+  animation: glimmer-back 1s ease-in-out infinite alternate;
+
+  p {
+    display: inline-block;
+    vertical-align: 0.3rem;
+  }
+}
+@keyframes glimmer {
+  0% { opacity: 0.5; }
+  100% { opacity: 0.9; }
+}
+@keyframes glimmer-back {
+  0% { background: rgba(10, 0, 10, 0.5); }
+  100% { background: rgba(10, 0, 10, 0.7); }
+}
+
+/* Component: フラッシュメッセージ */
+.notice-plate {
+  position: fixed;
+  top: -20px;
+  left: 0;
+  z-index: 3000;
+  width: 100%;
+  font-size: 1.2rem;
+  color: #ffffff;
+  text-align: center;
+  background: rgba(0,0,0,0.5);
+  padding: 10px;
+  opacity: 0;
+  animation: flash-message 1.2s ease-in-out 2 alternate;
+}
+@keyframes flash-message {
+  25% { top: 0; opacity: 1; }
+  100% { top: 0; opacity: 1; }
+}
+
+/* Component: ページャー */
+.pager-page {
+  margin: 0 6px 5px;
+  &.pager-page-current {
+    font-size: 2rem;
+  }
+}
+
+/* 編集ブロック */
+.island {
+  padding: 30px 20px 20px;
+  margin: 20px 0;
+  border: 1px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+
+  &.island-filled {
+    border: 1px solid #eeeeee;
+    box-shadow: none;
+  }
+
+  &.island-disabled {
+    border-style: dashed;
+    color: #aaa5aa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    &.island-filled {
+      border: 1px solid #eeeeee;
+      box-shadow: none;
+    }
+  }
+
+  .island-header {
+    color: #333133;
+    font-size: 2rem;
+    margin-bottom: 24px;
+
+    &.island-header-control {
+      label {
+        @include font-secondary;
+        font-size: 2rem;
+        color: #333133;
+        margin-bottom: unset;
+        span {
+          font-size: 1.6rem;
+        }
+      }
+      .island-header-buttons {
+        float: right;
+      }
+      &::after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+    }
+  }
+}
+
+/* Input: ボタン */
+.button-label {
+  display: none;
+}
+.mdc-icon-button:hover > .button-label {
+  display: block;
+  font-size: 0.4rem;
+  margin: 0 -12px;
+}
+
+/* Input: テキスト入力 */
+.dew-text-label {
+  position: relative;
+  top: 8px;
+  left: 16px;
+  background: #ffffff;
+}
+.dew-text {
+  width: 100%;
+  height: 40px;
+  padding: 20px;
+  border: 1px solid #ccbbcc;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  &:focus {
+    border: 1px solid #040004;
+  }
+  &.dew-text-textarea {
+    height: 80px;
+    resize: vertical;
+  }
+}
+
+/* Input: スイッチ */
+.dew-switch {
+  display: table;
+  width: 100%;
+
+  > label {
+    display: table-cell;
+  }
+  > div {
+    display: table-cell;
+    width: 30%;
+    @include media-sp {
+      width: 50px;
+    }
+  }
+}
+
+/* Input: 並べ替えリスト */
+.dew-sortable {
+  list-style: none;
+  > li {
+    display: inline-flex;
+    width: 100%;
+    margin-bottom: 10px;
+    > .dew-text {
+      display: table-cell;
+      &.dew-sortable-left {
+        flex-shrink: 1.4;
+        padding-right: 5px;
+        border-right: none;
+        border-radius: 4px 0 0 4px;
+      }
+      &.dew-sortable-right {
+        padding-left: 5px;
+        border-left: none;
+        border-radius: 0 4px 4px 0;
+      }
+    }
+    > .dew-sortable-button {
+      width: 40px;
+      height: 40px;
+      font-size: 16px;
+      color: $color-quiet;
+      &:hover {
+        color: $color-warning;
+      }
+    }
+    > .dew-sortable-handle {
+      display: block;
+      flex-basis: 40px;
+      flex-shrink: 0;
+      font-size: 16px;
+      color: $color-quiet;
+      text-align: center;
+      cursor: move;
+      > * {
+        line-height: 40px;
+      }
+    }
+  }
+}
+.dew-sortable-append {
+  color: $color-quiet;
+  background: #f6f4f7;
+  text-align: center;
+  width: 70%;
+  height: 14px;
+  border-radius: 7px;
+  cursor: pointer;
+  margin: 0 auto;
+
+  .material-icons {
+    font-size: 11px;
+  }
+}
+
+/* Input: Hidden */
+.dew-file-input {
+  display: none;
+}
+.dew-file {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #efedf0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.dew-file-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.8;
+  margin: 7px 2px;
+}
+.dew-file-text {
+  font-size: 0.7rem;
+  letter-spacing: 0.8px;
+  margin: 0 8px;
+}
+.dew-file-notice {
+  color: $color-quiet;
+  text-align: center;
+  font-size: 0.7rem;
+  margin: -5px 0 5px;
+  > .material-icons {
+    font-size: 0.7rem;
+  }
+}
+
+h1 {
+  font-size: 1.7rem;
+  margin: 1rem 1rem 0.6rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+/* ページ個別スタイル */
+@import "./projects.scss";
+@import "./headlines.scss";
+@import "./stickies.scss";
+@import "./contacts.scss";

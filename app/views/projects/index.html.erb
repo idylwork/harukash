@@ -1,0 +1,62 @@
+<div class="project-index-header">
+  <h1>Projects</h1>
+  <%= link_to batch_projects_path do %>
+    <button type="button" class="mdc-button mdc-button--icon mdc-button--primary mdc-ripple-upgraded"><i class="material-icons mdc-button__icon">format_list_numbered</i>ページの並べ替え</button>
+  <% end %>
+</div>
+<p class="tip tip-right">公開中のプロジェクトの表示順を変更します。</p>
+<p class="tip">仕事や作品のプロジェクトを編集します。プロジェクトをクリックで編集します。プロジェクトの作成・編集をサイトに反映するためには公開する必要があります。<i class="material-icons">flare</i>Unissued が非公開のプロジェクト、<i class="material-icons">landscape</i>Edited が公開後に変更が加えられたプロジェクトです。</p>
+
+<div class="mdc-layout-grid">
+  <div class="mdc-layout-grid__inner">
+
+    <div class="mdc-card mdc-layout-grid__cell mdc-layout-grid__cell--span-4 card-new">
+      <div class="mdc-card__primary-action mdc-ripple-upgraded">
+        <div class="card-surface">
+          <%= link_to new_project_path do %>
+            <i class="material-icons">add</i>
+          <h2>New Project</h2>
+          <p class="tip">プロジェクトを新規作成します。</p>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <% @projects.each do |project| %>
+    <div class="mdc-card mdc-layout-grid__cell mdc-layout-grid__cell--span-4">
+      <%= link_to edit_project_path(project) do %>
+      <div class="mdc-card__primary-action mdc-ripple-upgraded">
+        <div class="mdc-card__media mdc-card__media--16-9"<% if project.file %> style="background-image: url(<%= project.file %>);"<% end %>></div>
+        <div class="card-surface" style="border-top: 6px solid <%= project.color_bg %>">
+          <h2 class="mdc-typography--headline6">
+            <%= project.title %>
+          </h2>
+          <h3 class="mdc-typography--subtitle2"><%= project.category.name %></h3>
+          <div class="mdc-typography--body2">
+            <%= project.overview_jp %>
+          </div>
+          <div class="card-supplement"><%= project.date %></div>
+        </div>
+      </div>
+      <% end %>
+      <div class="mdc-card__actions">
+        <% if !project.published_project %>
+          <i class="material-icons mdc-list-item__graphic">flare</i>Unissued
+        <% elsif project.updated_at != project.published_project.updated_at %>
+          <i class="material-icons mdc-list-item__graphic">landscape</i>Edited
+        <% end %>
+
+        <div class="mdc-card__action-icons">
+          <% if @index[project.id] %>
+            <%= link_to publish_path(@index[project.id]) do %>
+              <button type="button" class="mdc-icon-button mdc-icon-button--colored material-icons">search<p class="button-label">公開中</p></button>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+
+  </div>
+</div>

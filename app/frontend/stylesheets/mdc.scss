@@ -1,0 +1,116 @@
+@import "./sidedoor_settings.scss";
+
+//MDC上書き
+body {
+  .mdc-typography--headline6, .mdc-typography--subtitle2,
+  .mdc-typography--body2 {
+    @include font-primary;
+    .material-icons {
+      font-size: 1em;
+    }
+  }
+
+  .mdc-ripple-surface.mdc-ripple-upgraded--foreground-activation::after {
+    animation: 225ms mdc-ripple-fg-radius-in-fixed forwards, 75ms linear mdc-ripple-fg-opacity-in-fixed forwards;
+  }
+
+  .mdc-form-field {
+    font-family: none;
+  }
+  .mdc-drawer--permanent {
+    width: $width-nav;
+
+    @include media-sp {
+      width: $width-nav-sp;
+    }
+  }
+  .mdc-grid-list {
+    background: slategray;
+  }
+  .mdc-grid-tile__primary {
+    border: 1px solid gray;
+  }
+  .mdc-text-field > .mdc-text-field__input {
+    height: 100%;
+  }
+  .mdc-text-field.mdc-text-field--textarea {
+    width: 100% !important;
+    background: #ffffff;
+  }
+  .mdc-text-field--textarea {
+    height: 100px;
+  }
+  .mdc-card {
+    .card-surface {
+      padding: 10px 10px 8px;
+      height: 100%;
+    }
+
+    .card-supplement {
+      font-size: 0.7rem;
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    > a, .mdc-card__primary-action {
+      height: 100%;
+    }
+
+    &.card-new {
+      .card-surface {
+        display: table;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+        > a {
+          display: table-cell;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+  .mdc-dialog {
+    z-index: 9200;
+  }
+  .mdc-dialog__surface {
+    max-height: 90vh;
+    padding: 40px 30px 30px;
+    box-sizing: border-box;
+    transform: translateY(0) scale(0.8);
+    margin-left: 15px;
+  }
+  .mdc-dialog__content {
+    overflow: scroll;
+  }
+  .mdc-button {
+    margin: 5px 8px;
+  }
+  .mdc-list > .mdc-list-item {
+    font-size: 0.7rem !important;
+  }
+
+  @media (max-width: 839px) and (min-width: 480px) {
+    .mdc-layout-grid__inner {
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+    }
+  }
+
+  .mdc-slider {
+    user-select: none;
+  }
+
+  .mdc-snackbar {
+    z-index: 9100;
+  }
+
+  .mdc-dialog__content {
+    padding: 10px 0 20px;
+  }
+  .mdc-dialog__actions {
+    text-align: right;
+  }
+}
+// 動的に変更するMDC上書き
+.mdc-chip__checkmark-svg {
+  width: 20px;
+}

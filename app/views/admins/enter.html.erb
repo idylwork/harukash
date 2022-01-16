@@ -1,0 +1,55 @@
+<style>
+  html, body, .entry-plate, .enter-main {
+    height: 100%;
+  }
+  .enter-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: linear-gradient(170deg, #edf2e8, #ccccbb);
+    box-sizing: border-box;
+  }
+  .enter-area {
+    width: 300px;
+    text-align: center;
+    padding: 30px;
+  }
+  .enter-input {
+    font-family: "Iowan Old Style", "游明朝体", "Yu Mincho", YuMincho, "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "MS P明朝", "MS PMincho", serif;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 10px 20px 12px;
+    border: 1px solid #cccccc;
+    border-radius: 18px;
+    margin: 4%;
+  }
+  .enter-submit {
+    font-family: 'Material Icons';
+    font-size: 5rem;
+    cursor: pointer;
+    background: none;
+    padding: 10px 20px 10px 17px;
+    border: none;
+    color: #ffffff;
+    text-shadow: 0 1px 10px #ffffff;
+    transition: text-shadow 0.5s;
+  }
+  .enter-submit:hover {
+    text-shadow: 0 1px 18px #ffffff;
+  }
+  .enter-submit:active {
+    color: #444455;
+  }
+</style>
+
+<%= form_for :admin, url: enter_sidedoor_path, html: {class: "entry-plate"} do |f| %>
+<main class="enter-main">
+  <div class="enter-area">
+    <div><%= f.text_field :name, class: "enter-input", placeholder: "name" %></div>
+    <div><%= f.password_field :password, class: "enter-input", placeholder: "password" %></div>
+    <div><%= f.submit 'vpn_key', class: "enter-submit" %></div>
+    <p><%= notice %></p>
+  </div>
+</main>
+<% end %>

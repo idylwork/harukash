@@ -1,0 +1,307 @@
+@import "reset.css";
+
+$plate-width: 300px;
+$header-height: 40px;
+
+$color-base: #fdfdfd;
+$color-text: #222222;
+$color-text-pale: #878777;
+$color-accent: #a3a343;
+
+$margin-facade: 4%;
+$margin-outer: 5%;
+$margin-inner: 6%;
+$margin-facade-pc: 14%;
+$margin-outer-pc: 8%;
+$margin-inner-pc: 14%;
+
+@font-face {
+  font-family: Cochin;
+  src: url("../fonts/Cochin-01.woff2") format('woff2'),
+    url("../fonts/Cochin-01.woff") format('woff');
+}
+
+@font-face {
+  font-family: "Iowan Old Style";
+  src: url("../fonts/IowanOldStyle-Roman-01.woff2") format('woff2'),
+    url("../fonts/IowanOldStyle-Roman-01.woff") format('woff');
+}
+
+:root {
+  --line-color: #000000;
+}
+
+@mixin font-primary {
+  font-family: Cochin, Optima, "游明朝体", "Yu Mincho", YuMincho, "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "MS P明朝", "MS PMincho", serif;
+  font-weight: 500;
+}
+
+@mixin font-secondary {
+  font-family: "Iowan Old Style", "游明朝体", "Yu Mincho", YuMincho, "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "MS P明朝", "MS PMincho", serif;
+  font-weight: 500;
+}
+
+/* Material Icons */
+$material-icons-font-path: "../fonts/";
+@import "material-icons/iconfont/material-icons.scss";
+
+/* Component: Album */
+.index-album {
+  position: relative;
+  padding-top: 24%;
+  overflow: hidden;
+  flex-grow: 0.8;
+
+  div {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center center;
+    opacity: 0;
+    transition: opacity 2.4s ease-in;
+    will-change: opacity, filter;
+
+    &.show {
+      opacity: 1;
+      animation: album-view 18s cubic-bezier(0.3, 1, 0.22, 1);
+    }
+  }
+}
+
+@keyframes album-view {
+  0% {
+    filter: opacity(0) blur(10px);
+  }
+
+  40% {
+    filter: opacity(100%) blur(0);
+  }
+
+  100% {
+    filter: opacity(100%) blur(0);
+  }
+}
+
+/* Component: Sticky */
+@mixin sticky-base {
+  @include font-secondary;
+  font-size: 0.8rem;
+  line-height: 1.6rem;
+  letter-spacing: 1px;
+  overflow: auto;
+}
+
+.sticky-plate {
+  $padding-x: 30px;
+  position: relative;
+  padding: 60px $padding-x;
+  color: #ffffff;
+  background-image: linear-gradient(120deg, #89b1ba, #4a903a);
+  max-width: 400px;
+  margin: auto;
+
+  @for $i from 0 through 3 {
+    .sticky-margin-#{$i} {
+      margin-top: #{$i * 10}px;
+    }
+  }
+
+  .sticky-text {
+    @include sticky-base;
+  }
+
+  .sticky-heading {
+    font-weight: bold;
+    line-height: 1.4rem;
+  }
+
+  .sticky-link {
+    @include sticky-base;
+    text-decoration: underline;
+
+    &::after {
+      content: '';
+      display: block;
+    }
+  }
+
+  .sticky-image {
+    max-width: 100%;
+  }
+}
+
+/* Component: Fountain Link */
+.fountain-link {
+  display: inline-block;
+  text-align: left;
+  word-break: break-word;
+
+  .fountain-link-surface {
+    display: block;
+
+    &:hover .fountain-link-line {
+      padding: 0 2px;
+    }
+  }
+
+  .fountain-link-line {
+    width: 100%;
+    padding: 0 10px;
+    transition: 1s padding;
+    box-sizing: border-box;
+
+    &:after {
+      content: '';
+      display: block;
+      border-top: none;
+      border-bottom: 0.99px solid $color-text;
+      border-bottom-color: var(--line-color);
+    }
+  }
+}
+
+/* Component: Project Stones */
+$block-margin-y: 8%;
+$block-margin-y-closer: 4%;
+
+.stone {
+  font-size: 0.9rem;
+  @include font-secondary;
+  line-height: 2rem;
+  letter-spacing: 1px;
+  padding: $block-margin-y $margin-inner;
+
+  &.stone-heading {
+    font-size: 2rem;
+    @include font-primary;
+    text-align: center;
+    padding-bottom: $block-margin-y-closer;
+
+    div {
+      display: inline-block;
+      padding: 14px 20px;
+      border-top: 1px solid #000000;
+      border-bottom: 1px solid #000000;
+    }
+
+    +.stone-text {
+      padding-top: $block-margin-y;
+    }
+  }
+
+  &.stone-text {
+    white-space: pre-line;
+    line-break: after-white-space;
+    letter-spacing: 1px;
+    line-height: 2.4rem;
+    padding-top: $block-margin-y;
+
+    +.stone-text {
+      padding-top: $block-margin-y-closer;
+    }
+  }
+
+  &.stone-link {
+    padding-top: $block-margin-y-closer;
+    padding-bottom: $block-margin-y-closer;
+  }
+
+  &.stone-picture {
+    text-align: center;
+    box-sizing: border-box;
+    width: 100%;
+
+    .stone-image-horizontal {
+      .stone-image {
+        width: 100%;
+        margin-bottom: -9px;
+      }
+    }
+
+    +.stone-picture {
+      padding-top: $block-margin-y-closer;
+    }
+
+    .stone-image-caption {
+      text-align: right;
+      font-size: 0.8rem;
+      line-height: 1rem;
+      margin-top: 0.7rem;
+
+      .fountain-link {
+        line-height: 2rem;
+        margin-top: -0.4rem;
+      }
+    }
+
+    .stone-image-caption-text {
+      display: inline-block;
+      text-align: left;
+      text-justify: inter-word;
+    }
+
+    // 詳細度補正
+    &.stone .stone-image-portrait {
+      position: relative;
+      padding-top: 100%;
+
+      >.stone-image-surface {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
+  }
+
+  &.stone-html {
+    padding: 0;
+
+    .inner-box {
+      margin: $block-margin-y $margin-inner;
+    }
+  }
+
+  // 色付きブロック (高詳細度)
+  &.stone-colored.stone-colored {
+    padding-top: $block-margin-y * 2; // 色付きグループ上部のマージン
+    padding-bottom: $block-margin-y * 2; // 色付きグループ下部のマージン
+    padding-left: $margin-inner * 1.5;
+    padding-right: $margin-inner * 1.5;
+
+    &.stone-heading {
+      padding-bottom: $block-margin-y;
+    }
+
+    +.stone-colored {
+      //続けて背景色ブロック
+      padding-top: $block-margin-y;
+
+      &.stone-text,
+      &.stone-link,
+      &.stone-picture {
+        padding-top: 0;
+        margin-top: -$block-margin-y-closer; // 色付きグループ間隔の調整
+      }
+    }
+
+    +.stone {
+      //下のブロックは離れる
+      padding-top: $block-margin-y;
+    }
+  }
+}
+
+.locale-ja {
+
+  .index-overview,
+  .stone-text {
+    text-align: justify;
+  }
+}

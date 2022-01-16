@@ -1,0 +1,74 @@
+<%= form_with(model: admin, local: true) do |form| %>
+  <% if admin.errors.any? %>
+  <div class="error-block">
+    <h2><%= pluralize(admin.errors.count, "件のエラーがあります") %></h2>
+      <ul>
+      <% admin.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="island">
+    <%= form.label :name, class: "dew-text-label" %>
+    <%= form.text_field :name, class: "dew-text" %>
+    <%= form.label :email, class: "dew-text-label" %>
+    <%= form.text_field :email, class: "dew-text" %>
+
+    <div>
+      <div class="mdc-form-field">
+        <div class="mdc-checkbox">
+          <%= form.check_box :sendmail, class: "mdc-checkbox__native-control" %>
+          <div class="mdc-checkbox__background">
+            <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+              <path class="mdc-checkbox__checkmark-path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+            </svg>
+            <div class="mdc-checkbox__mixedmark"></div>
+          </div>
+        </div>
+        <%= form.label :sendmail, "受信メッセージをメールアドレスに転送する" %>
+      </div>
+    </div>
+
+    <%= form.label :password, class: "dew-text-label" %>
+    <%= form.password_field :password, class: "dew-text" %>
+    <%= form.label :password_confirmation, class: "dew-text-label" %>
+    <%= form.password_field :password_confirmation, class: "dew-text" %>
+    <hr>
+    <div class="mdc-form-field">
+      <div class="mdc-radio mdc-ripple-upgraded mdc-ripple-upgraded--unbounded">
+        <%= form.radio_button :level, "root", class: "mdc-radio__native-control", disabled: !controller.root? %>
+        <div class="mdc-radio__background">
+          <div class="mdc-radio__outer-circle"></div>
+          <div class="mdc-radio__inner-circle"></div>
+        </div>
+      </div>
+      <%= form.label :level, "システム管理者" %>
+    </div>
+    <div class="mdc-form-field">
+      <div class="mdc-radio mdc-ripple-upgraded mdc-ripple-upgraded--unbounded">
+        <%= form.radio_button :level, "owner", class: "mdc-radio__native-control", disabled: !controller.root? %>
+        <div class="mdc-radio__background">
+          <div class="mdc-radio__outer-circle"></div>
+          <div class="mdc-radio__inner-circle"></div>
+        </div>
+      </div>
+      <%= form.label :level, "サイトオーナー" %>
+    </div>
+    <div class="mdc-form-field">
+      <div class="mdc-radio mdc-ripple-upgraded mdc-ripple-upgraded--unbounded">
+        <%= form.radio_button :level, "contributor", class: "mdc-radio__native-control", disabled: !controller.root? %>
+        <div class="mdc-radio__background">
+          <div class="mdc-radio__outer-circle"></div>
+          <div class="mdc-radio__inner-circle"></div>
+        </div>
+      </div>
+      <%= form.label :level, "編集のみ" %>
+    </div>
+  </div>
+  <%= form.button "Save", class: "mdc-fab mdc-fab--extended mdc-ripple-upgraded" %>
+  <% if controller.root? %>
+  <%= link_to button_tag("Back", type: "button", class: "mdc-fab mdc-fab--extended mdc-ripple-upgraded"), admins_path %>
+  <% end %>
+<% end %>

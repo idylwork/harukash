@@ -1,0 +1,106 @@
+.sticky-edit-editor-curtain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 400;
+  height: 100%;
+}
+
+.sticky-plate {
+  z-index: 500;
+
+  .island-header { 
+    color: #333133;
+    font-size: 2rem;
+    margin-bottom: 24px;
+  }
+  .sticky-edit-dew {
+    @include sticky-base;
+    color: #ffffff;
+    background: transparent;
+    width: 100%;
+    height: 24px;
+    padding: 0;
+    border: none;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    border: 0.99px dashed #ffffff;
+    resize: none;
+  }
+  .sticky-edit-editor {
+    z-index: 2000;
+  }
+  .sticky-edit-dew {
+    z-index: 5000;
+  }
+  .sticky-edit-dew-file {
+    z-index: 5000;
+    display: block;
+    min-height: 100px;
+    max-width: 100%;
+    border: 0.99px dashed #ffffff;
+    line-height: 0;
+  }
+  .sticky-edit-dew-file-image {
+    width: 100%;
+  }
+  .sticky-edit-menu {
+    color: $color-base;
+    background: rgba(100, 100, 100, 0.8);
+
+    .tip {
+      color: $color-base;
+    }
+  }
+  .sticky-edit-new {
+    $padding-x: 30px;
+    color: $color-base;
+    position: absolute;
+    height: 0;
+    width: 100%;
+    margin-top: -2px;
+    padding: 0 $padding-x*3 0 $padding-x;
+    box-sizing: border-box;
+  }
+  .sticky-edit-new-menu {
+    height: 10px;
+    
+    &:hover .sticky-edit-new-menu-surface, {
+      display: block;
+    }
+  }
+  .sticky-edit-new-active .sticky-edit-new-menu-surface {
+    display: block;
+  }
+
+  .sticky-edit-new-menu-surface {
+    display: none;
+    z-index: 1000;
+    text-align: center;
+    background: rgba(100, 100, 100, 0.5);
+    border: 0.99px dashed #ffffff;
+    margin-top: -10px;
+  }
+
+  @for $i from 0 through 3 {
+    .sticky-edit-margin-#{$i} {
+      margin-top: #{($i * -5) - 2}px;
+    }
+  }
+  
+  .mdc-icon-button.mdc-supp-icon-button-mini {
+    font-size: 10px;
+    height: 25px;
+    width: 25px;
+    padding: 7px 2px 7px;
+  }
+}
+.sticky-edit-dew-file-input {
+  display: none;
+}
+.sticky-edit-control {
+  text-align: center;
+  padding-right: 14px;
+}

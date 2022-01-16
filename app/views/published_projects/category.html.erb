@@ -1,0 +1,35 @@
+<% content_for :main do %>
+class="category-plate"
+<% end %>
+<div>
+  <section class="category-main">
+    <h1>
+      <div class="heading-sub heading-sub-category">Category</div>
+      <%= @category.name %>
+    </h1>
+  </section>
+
+  <div class="project-contents">
+    <section class="index-project-group">
+    <% if @projects.empty? %>
+      <%= t("messages.no_project") %>
+    <% else %>
+      <% @projects.each do |project| %>
+      <%= link_to publish_path(@index[:project][project.id]), class: "index-project" do %>
+      <div class="index-thumbnail<%= " vertical" if project.is_portrait %>">
+        <div><% if project.file %><img src="<%= project.file %>"><% end %></div>
+      </div>
+      <div class="index-overview">
+        <h3><%= project.title %></h3>
+        <div class="card-supplement"><%= project.date.year %></div>
+        <p><%= project.overview %></p>
+        <p class="index-paginate">p.1</p>
+      </div>
+      <% end %>
+      <% end %>
+    <% end %>
+    </section>
+
+    <%= render partial: "pillar", locals: {color_edge: @preference.default_color_edge} %>
+  </div>
+</div>

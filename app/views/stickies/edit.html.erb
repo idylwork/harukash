@@ -1,0 +1,37 @@
+<% content_for :extend_menu do %>
+  <div class="click-event mdc-list-item mdc-ripple-upgraded" data-event="submit">
+    <i class="material-icons mdc-list-item__graphic">send</i><span class="mdc-list-item__text pc-only">ISSUE</span>
+  </div>
+<% end %>
+
+<%= form_with(model: @preference, local: true, id: "form_edit", multipart: true, html: {style: "padding-bottom: 1px;"}) do |form| %>
+  <div class="island island-filled">
+    <div id="sticky_editor" data-json="<%= @json %>"></div>
+  </div>
+  <div class="island">
+    <button name="button" type="submit" class="mdc-fab mdc-fab--extended mdc-ripple-upgraded" value="issue">
+      <span class="material-icons mdc-fab__icon">send</span>
+      <span class="mdc-fab__label">Issue</span>
+    </button>
+    <p class="tip">付箋の変更を保存します。公開状態の場合は直ちにトップページに反映されます。</p>
+
+    <hr>
+    <div class="dew-switch">
+      <label for="sticky_is_visible">トップページに表示する</label>
+      <div class="mdc-switch <%= "mdc-switch--checked" if @is_visible %>">
+        <div class="mdc-switch__track"></div>
+        <div class="mdc-switch__thumb-underlay">
+          <div class="mdc-switch__thumb">
+            <input type="hidden" name="sticky[is_visible]" value="0">
+            <input type="checkbox" name="sticky[is_visible]" id="sticky_is_visible" class="mdc-switch__native-control" value="1" <%= "checked" if @is_visible %>>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="tip">公開ステータスを設定します。オフにした場合はスケジュール設定に関わらず表示されません。</p>
+
+    <hr>
+    <div id="datepicker" data-json="<%= @json_date %>"></div>
+    <p class="tip">公開期間を設定します。まず公開開始日をクリックし、続けて公開終了日をクリックします。期間を外れた時点から非表示になります。スケジュール予約をしない場合は『<i class="material-icons">av_timer</i> スケジュール予約を無効にする』をクリックします。</p>
+  </div>
+<% end %>
